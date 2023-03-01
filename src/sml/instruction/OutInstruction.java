@@ -19,9 +19,12 @@ public class OutInstruction extends Instruction {
     public static final String OP_CODE = "out";
 
     public OutInstruction(String label, InstructionLineScanner instructionLineScanner) {
-        super(label, OP_CODE);
+        this(label, Register.valueOf(instructionLineScanner.scan()));
+    }
 
-        this.source = Register.valueOf(instructionLineScanner.scan());
+    public OutInstruction(String label, RegisterName source) {
+        super(label, OP_CODE);
+        this.source = source;
     }
 
     @Override

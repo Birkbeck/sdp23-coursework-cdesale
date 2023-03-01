@@ -20,10 +20,13 @@ public class MovInstruction extends Instruction {
     public static final String OP_CODE = "mov";
 
     public MovInstruction(String label, InstructionLineScanner instructionLineScanner) {
-        super(label, OP_CODE);
+        this(label, Register.valueOf(instructionLineScanner.scan()), Integer.parseInt(instructionLineScanner.scan()));
+    }
 
-        this.result = Register.valueOf(instructionLineScanner.scan());
-        this.value = Integer.parseInt(instructionLineScanner.scan());
+    public MovInstruction(String label, RegisterName result, int value) {
+        super(label, OP_CODE);
+        this.result = result;
+        this.value = value;
     }
 
     @Override

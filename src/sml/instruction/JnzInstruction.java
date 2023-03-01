@@ -21,10 +21,13 @@ public class JnzInstruction extends Instruction {
     public static final String OP_CODE = "jnz";
 
     public JnzInstruction(String label, InstructionLineScanner instructionLineScanner) {
-        super(label, OP_CODE);
+        this(label, Register.valueOf(instructionLineScanner.scan()), instructionLineScanner.scan());
+    }
 
-        this.source = Register.valueOf(instructionLineScanner.scan());
-        this.nextInstructionLabel = instructionLineScanner.scan();
+    public JnzInstruction(String label, RegisterName source, String nextInstructionLabel) {
+        super(label, OP_CODE);
+        this.source = source;
+        this.nextInstructionLabel = nextInstructionLabel;
     }
 
     @Override

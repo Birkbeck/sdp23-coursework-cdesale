@@ -20,10 +20,13 @@ public class SubInstruction extends Instruction {
     public static final String OP_CODE = "sub";
 
     public SubInstruction(String label, InstructionLineScanner instructionLineScanner) {
-        super(label, OP_CODE);
+        this(label, Register.valueOf(instructionLineScanner.scan()), Register.valueOf(instructionLineScanner.scan()));
+    }
 
-        this.result = Register.valueOf(instructionLineScanner.scan());
-        this.source = Register.valueOf(instructionLineScanner.scan());
+    public SubInstruction(String label, RegisterName result, RegisterName source) {
+        super(label, OP_CODE);
+        this.result = result;
+        this.source = source;
     }
 
     @Override

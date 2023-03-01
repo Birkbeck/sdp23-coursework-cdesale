@@ -20,10 +20,13 @@ public class MulInstruction extends Instruction {
     public static final String OP_CODE = "mul";
 
     public MulInstruction(String label, InstructionLineScanner instructionLineScanner) {
-        super(label, OP_CODE);
+        this(label, Register.valueOf(instructionLineScanner.scan()), Register.valueOf(instructionLineScanner.scan()));
+    }
 
-        this.result = Register.valueOf(instructionLineScanner.scan());
-        this.source = Register.valueOf(instructionLineScanner.scan());
+    public MulInstruction(String label, RegisterName result, RegisterName source) {
+        super(label, OP_CODE);
+        this.result = result;
+        this.source = source;
     }
 
     @Override

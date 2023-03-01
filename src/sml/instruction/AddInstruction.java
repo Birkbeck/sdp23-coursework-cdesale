@@ -20,10 +20,13 @@ public class AddInstruction extends Instruction {
 	public static final String OP_CODE = "add";
 
 	public AddInstruction(String label, InstructionLineScanner instructionLineScanner) {
-		super(label, OP_CODE);
+		this(label, Register.valueOf(instructionLineScanner.scan()), Register.valueOf(instructionLineScanner.scan()));
+	}
 
-		this.result = Register.valueOf(instructionLineScanner.scan());
-		this.source = Register.valueOf(instructionLineScanner.scan());
+	public AddInstruction(String label, RegisterName result, RegisterName source) {
+		super(label, OP_CODE);
+		this.result = result;
+		this.source = source;
 	}
 
 	@Override
