@@ -1,11 +1,9 @@
 package sml;
 
-// TODO: write a JavaDoc for the class
-
 /**
- * Represents an abstract instruction.
+ * Represents an abstract instruction class.
  *
- * @author ...
+ * @author Chaitali Desale
  */
 public abstract class Instruction {
 	protected final String label;
@@ -48,10 +46,18 @@ public abstract class Instruction {
 		return (getLabel() == null) ? "" : getLabel() + ": ";
 	}
 
-	// TODO: What does abstract in the declaration below mean?
-	//       (Write a short explanation.)
+	// What does abstract in the declaration below mean?
+	// Explanation: Because all the subclasses of Instruction class would have a unique behaviour for toString() and
+	// execute() method, using an abstract method will help us ensure that child classes will provide the
+	// implementation for these methods. Essentially, abstract keyword helps us dedicate the implementation of a method
+	// to its child-class or subclass.
+
 	@Override
 	public abstract String toString();
 
-	// TODO: Make sure that subclasses also implement equals and hashCode (needed in class Machine).
+	@Override
+	public abstract boolean equals(Object o);
+
+	@Override
+	public abstract int hashCode();
 }
