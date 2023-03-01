@@ -1,8 +1,10 @@
 package sml.instruction;
 
 import sml.Instruction;
+import sml.InstructionLineScanner;
 import sml.Machine;
 import sml.RegisterName;
+import sml.Registers.Register;
 
 import java.util.Objects;
 
@@ -17,10 +19,11 @@ public class MovInstruction extends Instruction {
 
     public static final String OP_CODE = "mov";
 
-    public MovInstruction(String label, RegisterName result, int value) {
+    public MovInstruction(String label, InstructionLineScanner instructionLineScanner) {
         super(label, OP_CODE);
-        this.result = result;
-        this.value = value;
+
+        this.result = Register.valueOf(instructionLineScanner.scan());
+        this.value = Integer.parseInt(instructionLineScanner.scan());
     }
 
     @Override

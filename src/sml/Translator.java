@@ -3,19 +3,23 @@ package sml;
 import sml.instruction.*;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 import static sml.Registers.Register;
 
 /**
- * This class ....
+ * This class that helps translate a set of SML instruction in text file into list of executable Java instructions.
  * <p>
  * The translator of a <b>S</b><b>M</b>al<b>L</b> program.
  *
- * @author ...
+ * @author Chaitali Desale
  */
 public final class Translator {
 
@@ -24,10 +28,13 @@ public final class Translator {
     // line contains the characters in the current line that's not been processed yet
     private String line = "";
 
+    // A factory to help with Instruction object instantiation.
+    private final InstructionFactory instructionFactory;
+
     public Translator(String fileName) {
         this.fileName =  fileName;
+        this.instructionFactory = new InstructionFactoryImpl();
     }
-
     // translate the small program in the file into lab (the labels) and
     // prog (the program)
     // return "no errors were detected"
@@ -65,55 +72,12 @@ public final class Translator {
         if (line.isEmpty())
             return null;
 
+        // TODO: Next, use dependency injection to allow this machine class
+        //       to work with different sets of opcodes (different CPUs)
+
         String opcode = scan();
-        switch (opcode) {
-            case AddInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new AddInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case SubInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new SubInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case MulInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new MulInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case DivInstruction.OP_CODE -> {
-                String r = scan();
-                String s = scan();
-                return new DivInstruction(label, Register.valueOf(r), Register.valueOf(s));
-            }
-            case OutInstruction.OP_CODE -> {
-                String s = scan();
-                return new OutInstruction(label, Register.valueOf(s));
-            }
-            case MovInstruction.OP_CODE -> {
-                String r = scan();
-                int value = Integer.parseInt(scan());
-                return new MovInstruction(label, Register.valueOf(r), value);
-            }
-            case JnzInstruction.OP_CODE -> {
-                String s = scan();
-                String nextInstructionLabel = scan();
-                return new JnzInstruction(label, Register.valueOf(s), nextInstructionLabel);
-            }
-
-            // TODO: Then, replace the switch by using the Reflection API
-
-            // TODO: Next, use dependency injection to allow this machine class
-            //       to work with different sets of opcodes (different CPUs)
-
-            default -> {
-                System.out.println("Unknown instruction: " + opcode);
-            }
-        }
-        return null;
+        return instructionFactory.getInstruction(opcode, this::scan, label);
     }
-
 
     private String getLabel() {
         String word = scan();

@@ -1,8 +1,10 @@
 package sml.instruction;
 
 import sml.Instruction;
+import sml.InstructionLineScanner;
 import sml.Machine;
 import sml.RegisterName;
+import sml.Registers.Register;
 
 import java.util.Objects;
 import java.util.stream.IntStream;
@@ -18,10 +20,11 @@ public class JnzInstruction extends Instruction {
 
     public static final String OP_CODE = "jnz";
 
-    public JnzInstruction(String label, RegisterName source, String nextInstructionLabel) {
+    public JnzInstruction(String label, InstructionLineScanner instructionLineScanner) {
         super(label, OP_CODE);
-        this.source = source;
-        this.nextInstructionLabel = nextInstructionLabel;
+
+        this.source = Register.valueOf(instructionLineScanner.scan());
+        this.nextInstructionLabel = instructionLineScanner.scan();
     }
 
     @Override

@@ -1,8 +1,10 @@
 package sml.instruction;
 
 import sml.Instruction;
+import sml.InstructionLineScanner;
 import sml.Machine;
 import sml.RegisterName;
+import sml.Registers.Register;
 
 import java.util.Objects;
 
@@ -17,10 +19,11 @@ public class AddInstruction extends Instruction {
 
 	public static final String OP_CODE = "add";
 
-	public AddInstruction(String label, RegisterName result, RegisterName source) {
+	public AddInstruction(String label, InstructionLineScanner instructionLineScanner) {
 		super(label, OP_CODE);
-		this.result = result;
-		this.source = source;
+
+		this.result = Register.valueOf(instructionLineScanner.scan());
+		this.source = Register.valueOf(instructionLineScanner.scan());
 	}
 
 	@Override
