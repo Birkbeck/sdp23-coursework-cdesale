@@ -32,7 +32,7 @@ public class JnzInstruction extends Instruction {
         }
 
         return IntStream.range(0, m.getProgram().size())
-                .filter(index -> m.getProgram().get(index).getLabel().equals(nextInstructionLabel))
+                .filter(index -> nextInstructionLabel.equals(m.getProgram().get(index).getLabel()))
                 .findFirst()
                 .orElseGet(() -> NORMAL_PROGRAM_COUNTER_UPDATE);
     }

@@ -25,7 +25,6 @@ public class MovInstruction extends Instruction {
 
     @Override
     public int execute(Machine m) {
-        int value = m.getRegisters().get(result);
         m.getRegisters().set(result, value);
         return NORMAL_PROGRAM_COUNTER_UPDATE;
     }
