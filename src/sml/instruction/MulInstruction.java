@@ -7,11 +7,10 @@ import sml.RegisterName;
 import java.util.Objects;
 
 /**
- * A subclass of {@link Instruction} that handles the "sub" SML instruction.
+ * A subclass of {@link Instruction} that handles the "mul" SML instruction.
  *
  * @author Chaitali Desale
  */
-
 public class MulInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;

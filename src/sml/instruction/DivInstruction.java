@@ -6,6 +6,11 @@ import sml.RegisterName;
 
 import java.util.Objects;
 
+/**
+ * A subclass of {@link Instruction} that handles the "div" SML instruction.
+ *
+ * @author Chaitali Desale
+ */
 public class DivInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
