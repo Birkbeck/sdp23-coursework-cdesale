@@ -4,10 +4,12 @@ import sml.Instruction;
 import sml.Machine;
 import sml.RegisterName;
 
-// TODO: write a JavaDoc for the class
+import java.util.Objects;
 
 /**
- * @author
+ * A subclass of {@link Instruction} that handles the "add" SML instruction.
+ *
+ * @author Chaitali Desale
  */
 
 public class AddInstruction extends Instruction {
@@ -33,5 +35,18 @@ public class AddInstruction extends Instruction {
 	@Override
 	public String toString() {
 		return getLabelString() + getOpcode() + " " + result + " " + source;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		AddInstruction that = (AddInstruction) o;
+		return Objects.equals(result, that.result) && Objects.equals(source, that.source);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(result, source);
 	}
 }
