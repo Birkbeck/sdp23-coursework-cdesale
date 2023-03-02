@@ -1,7 +1,5 @@
 package sml;
 
-import sml.instruction.InstructionFactoryImpl;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -28,7 +26,7 @@ public final class Translator {
 
     public Translator(String fileName) {
         this.fileName =  fileName;
-        this.instructionFactory = new InstructionFactoryImpl();
+        this.instructionFactory = DaggerInstructionFactoryComponent.create().getInstructionFactory();
     }
 
     /**
@@ -67,9 +65,6 @@ public final class Translator {
     private Instruction getInstruction(String label) {
         if (line.isEmpty())
             return null;
-
-        // TODO: Next, use dependency injection to allow this machine class
-        //       to work with different sets of opcodes (different CPUs)
 
         String opcode = scan();
         return instructionFactory.getInstruction(opcode, this::scan, label);

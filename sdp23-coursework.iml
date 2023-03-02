@@ -25,5 +25,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="google.dagger" level="project" />
+    <orderEntry type="library" name="google.dagger.compiler" level="project" />
   </component>
 </module>

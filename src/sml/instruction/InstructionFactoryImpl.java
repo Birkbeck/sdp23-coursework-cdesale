@@ -4,6 +4,7 @@ import sml.Instruction;
 import sml.InstructionFactory;
 import sml.InstructionLineScanner;
 
+import javax.inject.Inject;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -22,6 +23,7 @@ public final class InstructionFactoryImpl implements InstructionFactory {
 
     private final Properties properties;
 
+    @Inject
     public InstructionFactoryImpl() {
         this.properties = new Properties();
         initProperties();
