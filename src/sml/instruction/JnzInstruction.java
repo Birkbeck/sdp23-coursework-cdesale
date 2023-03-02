@@ -18,8 +18,10 @@ public class JnzInstruction extends Instruction {
     private final RegisterName source;
     private final String nextInstructionLabel;
 
+    /** Value of opcode for jnz instruction. */
     public static final String OP_CODE = "jnz";
 
+    /** Constructor to help with Reflection API. */
     public JnzInstruction(String label, InstructionLineScanner instructionLineScanner) {
         this(label, Register.valueOf(instructionLineScanner.scan()), instructionLineScanner.scan());
     }
@@ -30,6 +32,7 @@ public class JnzInstruction extends Instruction {
         this.nextInstructionLabel = nextInstructionLabel;
     }
 
+    /** Execute method for jnz instruction. */
     @Override
     public int execute(Machine m) {
         int sourceValue = m.getRegisters().get(source);
@@ -37,6 +40,7 @@ public class JnzInstruction extends Instruction {
             return NORMAL_PROGRAM_COUNTER_UPDATE;
         }
 
+        // Find the first instruction with a label matching the next instruction label.
         return IntStream.range(0, m.getProgram().size())
                 .filter(index -> nextInstructionLabel.equals(m.getProgram().get(index).getLabel()))
                 .findFirst()

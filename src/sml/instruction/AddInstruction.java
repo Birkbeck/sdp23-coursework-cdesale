@@ -17,8 +17,10 @@ public class AddInstruction extends Instruction {
 	private final RegisterName result;
 	private final RegisterName source;
 
+	/** Value of opcode for addition instruction. */
 	public static final String OP_CODE = "add";
 
+	/** Constructor to help with Reflection API. */
 	public AddInstruction(String label, InstructionLineScanner instructionLineScanner) {
 		this(label, Register.valueOf(instructionLineScanner.scan()), Register.valueOf(instructionLineScanner.scan()));
 	}
@@ -29,6 +31,7 @@ public class AddInstruction extends Instruction {
 		this.source = source;
 	}
 
+	/** Execute method for addition instruction. */
 	@Override
 	public int execute(Machine m) {
 		int value1 = m.getRegisters().get(result);

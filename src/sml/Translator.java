@@ -1,18 +1,12 @@
 package sml;
 
-import sml.instruction.*;
+import sml.instruction.InstructionFactoryImpl;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Properties;
 import java.util.Scanner;
-
-import static sml.Registers.Register;
 
 /**
  * This class that helps translate a set of SML instruction in text file into list of executable Java instructions.
@@ -23,22 +17,24 @@ import static sml.Registers.Register;
  */
 public final class Translator {
 
-    private final String fileName; // source file of SML code
+    /** Source file for the SML code. */
+    private final String fileName;
 
-    // line contains the characters in the current line that's not been processed yet
+    /** Line contains the characters in the current line that's not been processed yet. */
     private String line = "";
 
-    // A factory to help with Instruction object instantiation.
+    /** A factory to help with {@link Instruction} object instantiation. */
     private final InstructionFactory instructionFactory;
 
     public Translator(String fileName) {
         this.fileName =  fileName;
         this.instructionFactory = new InstructionFactoryImpl();
     }
-    // translate the small program in the file into lab (the labels) and
-    // prog (the program)
-    // return "no errors were detected"
 
+    /**
+     * Translate the small program in the file into lab (the labels) and prog (the program) return "no errors were
+     * detected".
+     */
     public void readAndTranslate(Labels labels, List<Instruction> program) throws IOException {
         try (var sc = new Scanner(new File(fileName), StandardCharsets.UTF_8)) {
             labels.reset();
@@ -89,7 +85,7 @@ public final class Translator {
         return null;
     }
 
-    /*
+    /**
      * Return the first word of line and remove it from line.
      * If there is no word, return "".
      */

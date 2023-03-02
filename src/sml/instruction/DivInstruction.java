@@ -17,8 +17,10 @@ public class DivInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
 
+    /** Value of opcode for division instruction. */
     public static final String OP_CODE = "div";
 
+    /** Constructor to help with Reflection API. */
     public DivInstruction(String label, InstructionLineScanner instructionLineScanner) {
         this(label, Register.valueOf(instructionLineScanner.scan()), Register.valueOf(instructionLineScanner.scan()));
     }
@@ -29,6 +31,7 @@ public class DivInstruction extends Instruction {
         this.source = source;
     }
 
+    /** Execute method for division instruction. */
     @Override
     public int execute(Machine m) {
         int value1 = m.getRegisters().get(result);

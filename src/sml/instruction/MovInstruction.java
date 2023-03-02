@@ -17,8 +17,10 @@ public class MovInstruction extends Instruction {
     private final RegisterName result;
     private final int value;
 
+    /** Value of opcode for mov instruction. */
     public static final String OP_CODE = "mov";
 
+    /** Constructor to help with Reflection API. */
     public MovInstruction(String label, InstructionLineScanner instructionLineScanner) {
         this(label, Register.valueOf(instructionLineScanner.scan()), Integer.parseInt(instructionLineScanner.scan()));
     }
@@ -29,6 +31,7 @@ public class MovInstruction extends Instruction {
         this.value = value;
     }
 
+    /** Execute method for mov instruction. */
     @Override
     public int execute(Machine m) {
         m.getRegisters().set(result, value);

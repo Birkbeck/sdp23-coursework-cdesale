@@ -17,8 +17,10 @@ public class SubInstruction extends Instruction {
     private final RegisterName result;
     private final RegisterName source;
 
+    /** Value of opcode for sub instruction. */
     public static final String OP_CODE = "sub";
 
+    /** Constructor to help with Reflection API. */
     public SubInstruction(String label, InstructionLineScanner instructionLineScanner) {
         this(label, Register.valueOf(instructionLineScanner.scan()), Register.valueOf(instructionLineScanner.scan()));
     }
@@ -29,6 +31,7 @@ public class SubInstruction extends Instruction {
         this.source = source;
     }
 
+    /** Execute method for subtraction instruction. */
     @Override
     public int execute(Machine m) {
         int value1 = m.getRegisters().get(result);

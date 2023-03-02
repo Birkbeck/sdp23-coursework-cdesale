@@ -34,7 +34,7 @@ public final class InstructionFactoryImpl implements InstructionFactory {
     }
 
     /**
-     * Reads the opcode -> class name key:value pairs from the {@link #PROPERTIES_FILE_NAME} {@link java.io.File} and
+     * Reads the "opcode -> class name" key:value pairs from the {@link #PROPERTIES_FILE_NAME} {@link java.io.File} and
      * loads them into {@link #properties}.
      */
     private void initProperties() {

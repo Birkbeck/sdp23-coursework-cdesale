@@ -16,8 +16,10 @@ import java.util.Objects;
 public class OutInstruction extends Instruction {
     private final RegisterName source;
 
+    /** Value of opcode for out instruction. */
     public static final String OP_CODE = "out";
 
+    /** Constructor to help with Reflection API. */
     public OutInstruction(String label, InstructionLineScanner instructionLineScanner) {
         this(label, Register.valueOf(instructionLineScanner.scan()));
     }
@@ -27,6 +29,7 @@ public class OutInstruction extends Instruction {
         this.source = source;
     }
 
+    /** Execute method for out instruction. */
     @Override
     public int execute(Machine m) {
         int value2 = m.getRegisters().get(source);
