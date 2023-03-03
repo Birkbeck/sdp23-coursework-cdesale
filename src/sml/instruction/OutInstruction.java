@@ -1,7 +1,6 @@
 package sml.instruction;
 
 import sml.Instruction;
-import sml.InstructionLineScanner;
 import sml.Machine;
 import sml.RegisterName;
 import sml.Registers.Register;
@@ -20,13 +19,9 @@ public class OutInstruction extends Instruction {
     public static final String OP_CODE = "out";
 
     /** Constructor to help with Reflection API. */
-    public OutInstruction(String label, InstructionLineScanner instructionLineScanner) {
-        this(label, Register.valueOf(instructionLineScanner.scan()));
-    }
-
-    public OutInstruction(String label, RegisterName source) {
+    public OutInstruction(String label, String[] args) {
         super(label, OP_CODE);
-        this.source = source;
+        this.source = Register.valueOf(args[0]);
     }
 
     /** Execute method for out instruction. */

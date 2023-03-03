@@ -2,7 +2,6 @@ package sml.instruction;
 
 import sml.Instruction;
 import sml.InstructionFactory;
-import sml.InstructionLineScanner;
 
 import javax.inject.Inject;
 import java.io.FileInputStream;
@@ -30,9 +29,9 @@ public final class InstructionFactoryImpl implements InstructionFactory {
     }
 
     @Override
-    public Instruction getInstruction(String opcode, InstructionLineScanner instructionLineScanner, String label) {
+    public Instruction getInstruction(String opcode, String label, String[] args) {
         Class<?> clazz = getClassForOpcode(opcode);
-        return getInitialisedObject(clazz, instructionLineScanner, label);
+        return getInitialisedObject(clazz, label, args);
     }
 
     /**
@@ -58,12 +57,10 @@ public final class InstructionFactoryImpl implements InstructionFactory {
     }
 
     /** Returns an initialised object of the supplied {@code clazz}. This is a method for helping with reflection. */
-    private <T extends Instruction> T getInitialisedObject(Class<?> clazz,
-                                                           InstructionLineScanner instructionLineScanner,
-                                                           String label) {
+    private <T extends Instruction> T getInitialisedObject(Class<?> clazz, String label, String[] args) {
         try {
-            Constructor<?> constructor = clazz.getDeclaredConstructor(String.class, InstructionLineScanner.class);
-            return (T) constructor.newInstance(label, instructionLineScanner);
+            Constructor<?> constructor = clazz.getDeclaredConstructor(String.class, String[].class);
+            return (T) constructor.newInstance(label, args);
         } catch (IllegalAccessException | InvocationTargetException | InstantiationException
                  | NoSuchMethodException e) {
             throw new RuntimeException("Error initialising an Instruction subclass object using reflection", e);

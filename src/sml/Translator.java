@@ -3,6 +3,7 @@ package sml;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -67,7 +68,8 @@ public final class Translator {
             return null;
 
         String opcode = scan();
-        return instructionFactory.getInstruction(opcode, this::scan, label);
+        String[] args = getInstructionArgs();
+        return instructionFactory.getInstruction(opcode, label, args);
     }
 
     private String getLabel() {
@@ -87,13 +89,23 @@ public final class Translator {
     private String scan() {
         line = line.trim();
 
-        for (int i = 0; i < line.length(); i++)
-            if (Character.isWhitespace(line.charAt(i))) {
+        for (int i = 0; i <= line.length(); i++)
+            if (i == line.length() || Character.isWhitespace(line.charAt(i))) {
                 String word = line.substring(0, i);
                 line = line.substring(i);
                 return word;
             }
 
         return line;
+    }
+
+    /** Return the arguments that are to be passed to the {@link Instruction}. */
+    private String[] getInstructionArgs() {
+        List<String> args = new ArrayList<>();
+        for (String arg = scan(); !arg.isEmpty(); arg = scan()) {
+            args.add(arg);
+        }
+
+        return args.toArray(new String[0]);
     }
 }

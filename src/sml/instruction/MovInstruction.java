@@ -1,7 +1,6 @@
 package sml.instruction;
 
 import sml.Instruction;
-import sml.InstructionLineScanner;
 import sml.Machine;
 import sml.RegisterName;
 import sml.Registers.Register;
@@ -21,14 +20,10 @@ public class MovInstruction extends Instruction {
     public static final String OP_CODE = "mov";
 
     /** Constructor to help with Reflection API. */
-    public MovInstruction(String label, InstructionLineScanner instructionLineScanner) {
-        this(label, Register.valueOf(instructionLineScanner.scan()), Integer.parseInt(instructionLineScanner.scan()));
-    }
-
-    public MovInstruction(String label, RegisterName result, int value) {
+    public MovInstruction(String label, String[] args) {
         super(label, OP_CODE);
-        this.result = result;
-        this.value = value;
+        this.result = Register.valueOf(args[0]);
+        this.value = Integer.parseInt(args[1]);
     }
 
     /** Execute method for mov instruction. */

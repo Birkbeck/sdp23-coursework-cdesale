@@ -1,9 +1,12 @@
 package sml.instruction;
 
+import static sml.Registers.Register.EAX;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import sml.Instruction;
 import sml.Machine;
 import sml.Registers;
@@ -12,9 +15,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import static sml.Registers.Register.EAX;
-
 public class OutInstructionTest {
+    private static final String[] ARGS = new String[] {"EAX"};
+
     private Machine machine;
     private Registers registers;
     private ByteArrayOutputStream outContent;
@@ -38,7 +41,7 @@ public class OutInstructionTest {
     @Test
     void executeValid() {
         registers.set(EAX, 5);
-        Instruction instruction = new OutInstruction(null, EAX);
+        Instruction instruction = new OutInstruction(null, ARGS);
         instruction.execute(machine);
         Assertions.assertEquals("5" + System.lineSeparator(), outContent.toString());
     }

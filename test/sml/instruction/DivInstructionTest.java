@@ -1,5 +1,8 @@
 package sml.instruction;
 
+import static sml.Registers.Register.EAX;
+import static sml.Registers.Register.EBX;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,9 +12,9 @@ import sml.Instruction;
 import sml.Machine;
 import sml.Registers;
 
-import static sml.Registers.Register.*;
-
 class DivInstructionTest {
+    private static final String[] ARGS = new String[] {"EAX", "EBX"};
+
     private Machine machine;
     private Registers registers;
 
@@ -31,7 +34,7 @@ class DivInstructionTest {
     void executeValid() {
         registers.set(EAX, 6);
         registers.set(EBX, 2);
-        Instruction instruction = new DivInstruction(null, EAX, EBX);
+        Instruction instruction = new DivInstruction(null, ARGS);
         instruction.execute(machine);
         Assertions.assertEquals(3, machine.getRegisters().get(EAX));
     }
@@ -40,7 +43,7 @@ class DivInstructionTest {
     void executeValidTwo() {
         registers.set(EAX, 10);
         registers.set(EBX, 2);
-        Instruction instruction = new DivInstruction(null, EAX, EBX);
+        Instruction instruction = new DivInstruction(null, ARGS);
         instruction.execute(machine);
         Assertions.assertEquals(5, machine.getRegisters().get(EAX));
     }

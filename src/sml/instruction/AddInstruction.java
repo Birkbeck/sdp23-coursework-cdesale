@@ -1,7 +1,6 @@
 package sml.instruction;
 
 import sml.Instruction;
-import sml.InstructionLineScanner;
 import sml.Machine;
 import sml.RegisterName;
 import sml.Registers.Register;
@@ -21,14 +20,10 @@ public class AddInstruction extends Instruction {
 	public static final String OP_CODE = "add";
 
 	/** Constructor to help with Reflection API. */
-	public AddInstruction(String label, InstructionLineScanner instructionLineScanner) {
-		this(label, Register.valueOf(instructionLineScanner.scan()), Register.valueOf(instructionLineScanner.scan()));
-	}
-
-	public AddInstruction(String label, RegisterName result, RegisterName source) {
+	public AddInstruction(String label, String[] args) {
 		super(label, OP_CODE);
-		this.result = result;
-		this.source = source;
+		this.result = Register.valueOf(args[0]);
+		this.source = Register.valueOf(args[1]);
 	}
 
 	/** Execute method for addition instruction. */

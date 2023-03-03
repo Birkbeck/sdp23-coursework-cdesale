@@ -1,7 +1,6 @@
 package sml.instruction;
 
 import sml.Instruction;
-import sml.InstructionLineScanner;
 import sml.Machine;
 import sml.RegisterName;
 import sml.Registers.Register;
@@ -22,14 +21,10 @@ public class JnzInstruction extends Instruction {
     public static final String OP_CODE = "jnz";
 
     /** Constructor to help with Reflection API. */
-    public JnzInstruction(String label, InstructionLineScanner instructionLineScanner) {
-        this(label, Register.valueOf(instructionLineScanner.scan()), instructionLineScanner.scan());
-    }
-
-    public JnzInstruction(String label, RegisterName source, String nextInstructionLabel) {
+    public JnzInstruction(String label, String[] args) {
         super(label, OP_CODE);
-        this.source = source;
-        this.nextInstructionLabel = nextInstructionLabel;
+        this.source = Register.valueOf(args[0]);
+        this.nextInstructionLabel = args[1];
     }
 
     /** Execute method for jnz instruction. */
