@@ -11,7 +11,7 @@ import sml.Instruction;
 import sml.Machine;
 import sml.Registers;
 
-public class JnzInstructionTest {
+class JnzInstructionTest {
     private static final String TEST_LABEL = "test-label";
     private static final String[] ARGS = new String[] {"EAX", TEST_LABEL};
 

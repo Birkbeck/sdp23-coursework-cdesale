@@ -15,7 +15,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-public class OutInstructionTest {
+class OutInstructionTest {
     private static final String[] ARGS = new String[] {"EAX"};
 
     private Machine machine;
