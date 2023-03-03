@@ -21,7 +21,7 @@ amongst other skills.
 
 **Name**: Chaitali Desale
 
-**Your userid**: cdesal01
+**Your userid**: cdesale //(Github user ID)
 
 Please do not forget to complete this part as too often we have "orphaned" repositories,
 which can require months to sort out.

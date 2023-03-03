@@ -8,7 +8,7 @@ package sml;
 public interface InstructionFactory {
 
     /**
-     * Returns an initialised object on {@link Instruction} subclass that handles the supplied {@code opcode}.
+     * Returns an initialised object of {@link Instruction} subclass that handles the supplied {@code opcode}.
      *
      * @param opcode the {@link String} operational code for which the {@link Instruction} is associated
      * @param label the {@link String} label associated with the
