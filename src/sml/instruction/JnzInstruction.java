@@ -6,7 +6,6 @@ import sml.RegisterName;
 import sml.Registers.Register;
 
 import java.util.Objects;
-import java.util.stream.IntStream;
 
 /**
  * A subclass of {@link Instruction} that handles the "jnz" SML instruction.
@@ -35,11 +34,8 @@ public class JnzInstruction extends Instruction {
             return NORMAL_PROGRAM_COUNTER_UPDATE;
         }
 
-        // Find the first instruction with a label matching the next instruction label.
-        return IntStream.range(0, m.getProgram().size())
-                .filter(index -> nextInstructionLabel.equals(m.getProgram().get(index).getLabel()))
-                .findFirst()
-                .orElseGet(() -> NORMAL_PROGRAM_COUNTER_UPDATE);
+        // Get and return the address of an instruction that matches the next instruction label.
+        return m.getLabels().getAddress(nextInstructionLabel);
     }
 
     @Override

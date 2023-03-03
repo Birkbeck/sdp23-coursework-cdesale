@@ -14,6 +14,7 @@ import sml.Registers;
 class JnzInstructionTest {
     private static final String TEST_LABEL = "test-label";
     private static final String[] ARGS = new String[] {"EAX", TEST_LABEL};
+    private static final int NEXT_INSTRUCTION_INDEX = 0;
 
     private Machine machine;
     private Registers registers;
@@ -25,6 +26,7 @@ class JnzInstructionTest {
 
         // Add a fake instruction in the machine program for the jnz instruction, that is under test, to point to.
         machine.getProgram().add(new JnzInstruction(TEST_LABEL, ARGS));
+        machine.getLabels().addLabel(TEST_LABEL, NEXT_INSTRUCTION_INDEX);
     }
 
     @AfterEach
@@ -37,7 +39,7 @@ class JnzInstructionTest {
     void executeValid_shouldReturnInstructionIndexZero() {
         registers.set(EAX, 1);
         Instruction instruction = new JnzInstruction(null, ARGS);
-        Assertions.assertEquals(0, instruction.execute(machine));
+        Assertions.assertEquals(NEXT_INSTRUCTION_INDEX, instruction.execute(machine));
     }
 
     @Test
